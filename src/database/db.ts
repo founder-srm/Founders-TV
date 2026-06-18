@@ -5,9 +5,14 @@ import * as schema from "./schemas";
 
 const databaseUrl = process.env.DATABASE_URL;
 
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL is not set in the environment");
-}
+export const db = databaseUrl
+  ? drizzle(neon(databaseUrl), { schema })
+  : null;
 
-const sql = neon(databaseUrl);
-export const db = drizzle(sql, { schema });
+export function assertDb() {
+  if (!db) {
+    throw new Error("DATABASE_URL is not set in the environment");
+  }
+
+  return db;
+}
