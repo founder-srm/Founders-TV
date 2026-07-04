@@ -1,38 +1,42 @@
 import { NextResponse } from "next/server";
-import { auth, type AuthUser } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth/require-admin";
+import { db } from "@/database/db";
+import { collection } from "@/database/schemas/collection";
+import { eq } from "drizzle-orm";
+import { handleApiError } from "@/lib/errors/error-handler";
+import { BadRequest } from "@/lib/errors/BadRequest";
+import { adminCollectionSchema } from "@/validations";
 
-function isAdminUser(user: AuthUser | null | undefined): user is AuthUser & { role: string } {
-  return !!user && user.role === "ADMIN";
-}
-
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function PATCH(request: Request,{ params }: { params: Promise<{ id: string }> },) {
+  const admin = await requireAdmin();
   const { id } = await params;
-  const session = await auth.api.getSession({ headers: request.headers });
-
-  if (!isAdminUser(session?.user)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  const json = await request.json();
+  const parsed = adminCollectionSchema.safeParse(json);
+  if (!parsed.success) { return handleApiError(new BadRequest("Invalid collection data")); }
+  try {
+    await db?.update(collection).set(parsed.data).where(eq(collection.id, id));
+  } 
+  catch (error) {
+    return handleApiError(new BadRequest("Failed to update collection"));
   }
 
   return NextResponse.json({
-    message: `Admin update endpoint ready for collection ${id}`,
+    message: `Admin updated collection ${id}`,
   });
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(request: Request,{ params }: { params: Promise<{ id: string }> },) {
+  const admin = await requireAdmin();
   const { id } = await params;
-  const session = await auth.api.getSession({ headers: request.headers });
 
-  if (!isAdminUser(session?.user)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  try {
+    await db?.delete(collection).where(eq(collection.id, id));
+  } 
+  catch (error) {
+    return handleApiError(new BadRequest("Failed to delete collection"));
   }
 
   return NextResponse.json({
-    message: `Admin delete endpoint ready for collection ${id}`,
+    message: `Admin deleted collection ${id}`,
   });
 }

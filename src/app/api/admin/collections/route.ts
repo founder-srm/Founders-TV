@@ -1,17 +1,12 @@
 import { NextResponse } from "next/server";
-import { auth, type AuthUser } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import { adminCollectionSchema } from "@/validations";
-
-function isAdminUser(user: AuthUser | null | undefined): user is AuthUser & { role: string } {
-  return !!user && user.role === "ADMIN";
-}
+import { db } from "@/database/db";
+import { collection } from "@/database/schemas/collection";
 
 export async function POST(request: Request) {
-  const session = await auth.api.getSession({ headers: request.headers });
-
-  if (!isAdminUser(session?.user)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
+  // Ensures the request is authenticated and the user is an admin.
+  const admin = await requireAdmin();
 
   const json = await request.json();
   const parsed = adminCollectionSchema.safeParse(json);
@@ -22,6 +17,13 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+
+  await db?.insert(collection).values({
+    name: parsed.data.name,
+    thumbnail: parsed.data.thumbnail,
+    description: parsed.data.description,
+    createdById: admin.id,
+  });
 
   return NextResponse.json(
     {

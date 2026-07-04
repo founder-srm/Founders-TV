@@ -4,13 +4,36 @@
 
 ### Auth choice
 
-- Neon Auth (using the Better Auth-compatible integration path)
-- Why?
-    - it fits the Neon database-first model
-    - it gives us a managed identity layer without building custom auth infrastructure
-    - it keeps session management and provider flows simpler for a future mobile/web app
+### Authentication
 
-> In this repo, the application will keep a local `users` profile table for roles and display data, while Neon Auth manages the actual credential/session lifecycle.
+Provider:
+- Neon Auth
+
+Why Neon Auth?
+
+- Native integration with Neon PostgreSQL
+- Managed authentication and session handling
+- Supports email/password and OAuth providers
+- Eliminates the need to maintain authentication infrastructure
+- Scales well for future mobile and web applications
+
+Neon Auth will manage:
+
+- User authentication
+- Sessions
+- OAuth providers
+- Email verification
+- Password management
+
+The application database will maintain a local `users` table for application-specific data such as:
+
+- role
+- display name
+- avatar
+- profile metadata
+- timestamps
+
+Authentication and authorization remain separate concerns.
 
 ### Storage model
 

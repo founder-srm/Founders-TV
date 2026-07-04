@@ -30,12 +30,11 @@ export const adminVideoSchema = z.object({
   description: z.string().default(""),
   thumbnailUrl: z.string().url().optional(),
   collectionId: z.string().uuid().optional(),
-  publishedAt: z.string().datetime().optional(),
+  publishedAt: z.coerce.date().optional(),
 });
 
 export const adminCollectionSchema = z.object({
-  slug: z.string().trim().min(1).max(80),
   name: z.string().trim().min(1).max(120),
   description: z.string().default(""),
-  featured: z.boolean().default(false),
+  thumbnail: z.string().url().optional(),
 });
