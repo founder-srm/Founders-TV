@@ -15,28 +15,27 @@ export async function hasLikedVideo(userId: string, videoId: string) {
 
 export async function addLike(userId: string, videoId: string) {
   const database = assertDb();
-  await database.transaction(async (tx) => {
+  await database.insert(like).values({userId,videoId});
 
-    await tx.insert(like).values({userId,videoId});
-
-    await tx
-        .update(video)
-        .set({
-            likeCount: sql`${video.likeCount} + 1`,
-        })
-        .where(eq(video.id, videoId));
-
-  });
+  await database
+      .update(video)
+      .set({
+          likeCount: sql`${video.likeCount} + 1`,
+      })
+      .where(eq(video.id, videoId));
 }
 
 export async function removeLike(userId: string, videoId: string) {
   const database = assertDb();
-  await database.transaction(async (tx) => {
-    await tx.delete(like).where(and(eq(like.userId, userId), eq(like.videoId, videoId)));
-    await tx.update(video)
+  try {
+    await database.delete(like).where(and(eq(like.userId, userId), eq(like.videoId, videoId)));
+    await database.update(video)
         .set({
             likeCount: sql`${video.likeCount} - 1`,
         })
         .where(eq(video.id, videoId));
-  });
+  }
+  catch (error) {
+    console.error("Error removing like:", error);
+  }
 }
