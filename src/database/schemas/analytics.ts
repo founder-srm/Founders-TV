@@ -1,6 +1,7 @@
 import { integer, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
-import { user } from "./auth";
-import { collection, video } from "./content";
+import { user } from "./users";
+import { collection} from "./collection";
+import { video } from "./video";
 
 export const videoView = pgTable("video_view", {
   id: uuid("id").primaryKey().defaultRandom(),

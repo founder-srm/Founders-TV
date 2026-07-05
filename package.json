@@ -10,8 +10,9 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@neondatabase/auth": "^0.4.2-beta",
+    "@neondatabase/auth-ui": "^0.2.1-beta",
     "@neondatabase/serverless": "^1.1.0",
-    "better-auth": "^1.6.19",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",

@@ -1,23 +1,34 @@
 import { NextResponse } from "next/server";
-import { auth, type AuthUser } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth/require-admin";
+import { adminVideoSchema } from "@/validations";
+import { video } from "@/database/schemas/video";
+import { db } from "@/database/db";
+import {eq} from "drizzle-orm";
+import { handleApiError } from "@/lib/errors/error-handler";
+import { ForbiddenError } from "@/lib/errors/ForbiddenError";
+import {BadRequest} from "@/lib/errors/BadRequest"
 
-function isAdminUser(user: AuthUser | null | undefined): user is AuthUser & { role: string } {
-  return !!user && user.role === "ADMIN";
-}
-
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function PATCH(request: Request,{ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const session = await auth.api.getSession({ headers: request.headers });
-
-  if (!isAdminUser(session?.user)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  
+  const admin = await requireAdmin();
+  if (!admin) {
+    return handleApiError(new ForbiddenError("Forbidden: User is not an admin."));
+  }
+  
+  try {
+    const parsed = adminVideoSchema.safeParse(await request.json());
+    if (!parsed.success) {
+      return handleApiError(new BadRequest("Invalid video data"));
+    }
+    await db?.update(video).set(parsed.data).where(eq(video.id, id));
+  } 
+  catch (error) {
+    return handleApiError(new Error("Failed to update video"));
   }
 
   return NextResponse.json({
-    message: `Admin update endpoint ready for video ${id}`,
+    message: `Admin updated video ${id}`,
   });
 }
 
@@ -26,13 +37,20 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  const session = await auth.api.getSession({ headers: request.headers });
+  const admin = await requireAdmin();
 
-  if (!isAdminUser(session?.user)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!admin) {
+    return handleApiError(new ForbiddenError("Forbidden: User is not an admin."));
+  }
+
+  try {
+    await db?.delete(video).where(eq(video.id, id));
+  } 
+  catch (error) {
+    return handleApiError(new Error("Failed to delete video"));
   }
 
   return NextResponse.json({
-    message: `Admin delete endpoint ready for video ${id}`,
+    message: `Admin deleted video ${id}`,
   });
 }

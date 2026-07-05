@@ -1,5 +1,5 @@
 import { and, desc, eq } from "drizzle-orm";
-import { assertDb } from "@/database/db";
+import { assertDb, db } from "@/database/db";
 import { collection, video } from "@/database/schemas";
 
 export async function getCollections() {
@@ -7,13 +7,10 @@ export async function getCollections() {
   return database.select().from(collection).orderBy(desc(collection.createdAt));
 }
 
-export async function getCollectionBySlug(slug: string) {
+export async function getCollectionByName(name: string) {
   const database = assertDb();
-  const rows = await database
-    .select()
-    .from(collection)
-    .where(eq(collection.slug, slug));
-  return rows[0] ?? null;
+  const rows = await database.select().from(collection).where(eq(collection.name, name));
+  return rows.length > 0 ? rows[0] : null;
 }
 
 export async function getCollectionVideos(collectionId: string) {
