@@ -5,7 +5,7 @@ import { requireAdmin } from "@/lib/auth/require-admin";
 // Server components using auth methods must be rendered dynamically
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+export default async function AuthPage() {
 	const { data: session } = await auth.getSession();
 	const isAdmin = await requireAdmin();
 	if (!isAdmin) {
