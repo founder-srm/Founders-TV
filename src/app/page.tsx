@@ -1,9 +1,24 @@
+"use client"; // This must be the first line of code
+
+import { HeroSection } from "@/components/hero/hero-section";
+import { Navbar } from "@/components/layout/navbar";
+import { VideoGrid } from "@/components/video/video-grid";
+
+const demoVideos = [
+	{
+		id: "1",
+		title: "Club Wars",
+		thumbnail: "/images/clubWars.jpg",
+		views: 1307,
+	},
+];
 const Home = () => {
-  return (
-    <div className="flex flex-1 flex-col items-center justify-center">
-      <h1 className="font-serif text-7xl">Founders TV</h1>
-      Happy Coding{" <3"}
-    </div>
-  );
+	return (
+		<main className="flex min-h-screen flex-col items-center pt-18 p-8">
+			<Navbar />
+			<HeroSection />
+			<VideoGrid title="Watch More" videos={demoVideos} />
+		</main>
+	);
 };
 export default Home;

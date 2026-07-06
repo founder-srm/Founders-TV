@@ -3,6 +3,40 @@
 import Image from "next/image";
 import Link from "next/link";
 import { UserCircle2 } from "lucide-react";
+import { CollectionsDropdown } from "./collections-dropdown";
+
+const collections = [
+	{
+		id: "foundathon-3",
+		title: "Foundathon 3.0",
+		subtitle: "Annual Flagship Hackathon",
+		emoji: "🏆",
+	},
+	{
+		id: "startup-weekend",
+		title: "Startup Weekend",
+		subtitle: "Entrepreneurship Bootcamp",
+		emoji: "🚀",
+	},
+	{
+		id: "orientation-2026",
+		title: "Orientation",
+		subtitle: "Welcome to Founders Club",
+		emoji: "🎉",
+	},
+	{
+		id: "guest-talk",
+		title: "Guest Lecture",
+		subtitle: "Industry Speaker Series",
+		emoji: "🎤",
+	},
+	{
+		id: "workshop-series",
+		title: "Workshop Series",
+		subtitle: "Hands-on Technical Sessions",
+		emoji: "💻",
+	},
+];
 
 export function Navbar() {
 	return (
@@ -24,17 +58,12 @@ export function Navbar() {
 					<div className="flex items-center gap-10">
 						<Link
 							href="/"
-							className="text-xl font-semibold text-white transition-opacity hover:opacity-75"
+							className="text-lg font-semibold text-white transition-opacity hover:opacity-75"
 						>
 							Home
 						</Link>
 
-						<Link
-							href="/collections"
-							className="text-xl font-medium text-white/90 transition-opacity hover:opacity-75"
-						>
-							Collections
-						</Link>
+						<CollectionsDropdown collections={collections} />
 					</div>
 				</div>
 
