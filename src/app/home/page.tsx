@@ -11,36 +11,6 @@ const demoVideos = [
 		thumbnail: "/images/clubWars.jpg",
 		views: 1307,
 	},
-	{
-		id: "2",
-		title: "Club Wars",
-		thumbnail: "/images/clubWars.jpg",
-		views: 1307,
-	},
-	{
-		id: "3",
-		title: "Club Wars",
-		thumbnail: "/images/clubWars.jpg",
-		views: 1307,
-	},
-	{
-		id: "4",
-		title: "Club Wars",
-		thumbnail: "/images/clubWars.jpg",
-		views: 1307,
-	},
-	{
-		id: "5",
-		title: "Club Wars",
-		thumbnail: "/images/clubWars.jpg",
-		views: 1307,
-	},
-	{
-		id: "6",
-		title: "Club Wars",
-		thumbnail: "/images/clubWars.jpg",
-		views: 1307,
-	},
 ];
 
 export default function Home() {
@@ -48,7 +18,7 @@ export default function Home() {
 		<main className="flex min-h-screen flex-col items-center pt-18 p-8">
 			<Navbar />
 			<HeroSection />
-			<VideoGrid title="Trending Videos" videos={demoVideos} />
+			<VideoGrid title="Watch More" videos={demoVideos} />
 		</main>
 	);
 }

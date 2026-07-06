@@ -10,7 +10,7 @@ interface VideoCardProps {
 
 export function VideoCard({ id, title, thumbnail, views }: VideoCardProps) {
 	return (
-		<Link href={`/watch/${id}`} className="group block w-full max-w-sm">
+		<Link href={`/video/${id}`} className="group block w-full max-w-sm">
 			<div className="overflow-hidden rounded-2xl">
 				<Image
 					src={thumbnail}
