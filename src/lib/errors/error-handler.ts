@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { UnauthorizedError } from "./UnauthorizedError";
 import { ForbiddenError } from "./ForbiddenError";
 import { NotFoundError } from "./NotFoundError";
+import { BadRequest } from "./BadRequest";
 
 export function handleApiError(error : unknown) {
     if (error instanceof UnauthorizedError) {
@@ -20,6 +21,12 @@ export function handleApiError(error : unknown) {
         return NextResponse.json(
             { error: "Not Found" },
             { status: 404 }
+        );
+    }
+    else if (error instanceof BadRequest) {
+        return NextResponse.json(
+            { error: "Bad Request" },
+            { status: 400 }
         );
     }
     else {
