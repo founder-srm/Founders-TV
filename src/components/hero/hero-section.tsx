@@ -10,7 +10,7 @@ export function HeroSection() {
 			<div className="absolute inset-0">
 				<div className="absolute inset-y-0 right-0 w-[90%]">
 					<Image
-						src="/images/new.jpg"
+						src="/images/foundathon.jpg"
 						alt="Foundathon 3.0"
 						fill
 						sizes="80vw"

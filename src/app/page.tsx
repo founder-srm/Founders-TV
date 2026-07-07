@@ -8,7 +8,7 @@ const demoVideos = [
 	{
 		id: "1",
 		title: "Club Wars",
-		thumbnail: "/images/clubWars.jpg",
+		thumbnail: "/images/video1.jpg",
 		views: 1307,
 	},
 ];
