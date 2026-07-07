@@ -10,7 +10,7 @@ export default function CollectionPage() {
 			<CollectionHero
 				title="Foundathon 3.0"
 				subtitle="The Annual Flagship Hackathon of Founders Club"
-				heroImage="/images/new.jpg"
+				heroImage="/images/foundathon.jpg"
 				totalVideos={12}
 				totalViews={24318}
 			/>
