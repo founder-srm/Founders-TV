@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     const parsed = adminCollectionSchema.safeParse(json);
   
     if (!parsed.success) {
-      return new BadRequest("Invalid request body");
+      return handleApiError(new BadRequest("Invalid request body"));
     }
   
     await db?.insert(collection).values({

@@ -21,10 +21,9 @@ async function main() {
   await database.insert(collection).values([
     {
       id: sampleCollectionId,
-      slug: "hackathon-2026",
       name: "Hackathon 2026",
       description: "Club events, workshops, and highlights.",
-      featured: true,
+      thumbnail: "",
       createdById: adminUserId,
     },
   ]);
