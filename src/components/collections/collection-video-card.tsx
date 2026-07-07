@@ -113,7 +113,7 @@ export function CollectionVideoCard({
 					</div>
 
 					<Button size="icon" asChild className="rounded-full">
-						<Link href={`/watch/${id}`}>
+						<Link href={`/video/${id}`}>
 							<Play
 								className="
                                     h-4

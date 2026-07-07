@@ -21,8 +21,9 @@ export default async function ProfilePage() {
 	}
 
 	return (
-		<main
-			className="
+		<>
+			<main
+				className="
                 mx-auto
                 flex
                 min-h-[80vh]
@@ -31,35 +32,37 @@ export default async function ProfilePage() {
                 justify-center
                 gap-8
                 px-6
-            "
-		>
-			<div className="text-center">
-				<h1
-					className="
-                        mt-3
+				"
+			>
+				<Navbar />
+				<div className="text-center">
+					<h1
+						className="
+                        mt-10
                         text-4xl
                         font-bold
                         text-white
                     "
-				>
-					My Profile
-				</h1>
+					>
+						My Profile
+					</h1>
 
-				<p
-					className="
+					<p
+						className="
                         mt-4
                         text-neutral-400
                     "
-				>
-					Manage your Founders Club account.
-				</p>
-			</div>
+					>
+						Manage your Founders Club account.
+					</p>
+				</div>
 
-			<ProfileCard name="Mohak Jain" email="mohakj500@gmail.com" />
+				<ProfileCard name="Mohak Jain" email="mohakj500@gmail.com" />
 
-			<div className="flex justify-center">
-				<LogoutButton onLogout={logout} />
-			</div>
-		</main>
+				<div className="flex justify-center">
+					<LogoutButton onLogout={logout} />
+				</div>
+			</main>
+		</>
 	);
 }
