@@ -49,7 +49,7 @@ export function HeroSection() {
 					<Button
 						size="icon-lg"
 						className="w-auto h-auto pt-2 pb-2 pl-0 pr-0 rounded-2xl bg-white px-8 text-black hover:bg-neutral-200"
-						onClick={redirect("/video/1")}
+						onClick={() => redirect("/video/1")}
 					>
 						<Play className="mr-2 fill-black" size={36} />
 						<span className="text-3xl font-semibold">Play</span>
