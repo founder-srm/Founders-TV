@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { UserCircle2 } from "lucide-react";
 import { CollectionsDropdown } from "./collections-dropdown";
+import { redirect } from "next/navigation";
 
 const collections = [
 	{
@@ -71,6 +72,7 @@ export function Navbar() {
 				<button
 					className="rounded-full text-white transition-opacity hover:opacity-80"
 					aria-label="Profile"
+					onClick={() => redirect("/profile")}
 				>
 					<UserCircle2 size={48} strokeWidth={1.75} />
 				</button>
