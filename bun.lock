@@ -12,7 +12,7 @@
         "dotenv": "^17.4.2",
         "drizzle": "^1.4.0",
         "drizzle-orm": "^0.45.2",
-        "lucide-react": "^1.16.0",
+        "lucide-react": "^1.23.0",
         "next": "16.2.6",
         "radix-ui": "^1.4.3",
         "react": "19.2.4",
@@ -1337,7 +1337,7 @@
 
     "lru-cache": ["lru-cache@5.1.1", "", { "dependencies": { "yallist": "^3.0.2" } }, "sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w=="],
 
-    "lucide-react": ["lucide-react@1.16.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-dYwyPzb4MEKpGUmNYk3WKWPnMrHs3FKM+q94kAnJrcDIqqn1hq2xY8scaS2ovsOCM5D51ey2gaRG3PBb1vgoYQ=="],
+    "lucide-react": ["lucide-react@1.23.0", "", { "peerDependencies": { "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-38BpJcD0JhFosxHApP/BYsBetLpQFRoTRzEzstM/XCc3jsAG7wqaY1lgVwxiUe3xqYE+lNxo2PkCmYwXWrwwIw=="],
 
     "magic-string": ["magic-string@0.30.21", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.5" } }, "sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ=="],
 
@@ -1911,7 +1911,7 @@
 
     "web3-utils": ["web3-utils@1.0.0-beta.35", "", { "dependencies": { "bn.js": "4.11.6", "eth-lib": "0.1.27", "ethjs-unit": "0.1.6", "number-to-bn": "1.7.0", "randomhex": "0.1.5", "underscore": "1.8.3", "utf8": "2.1.1" } }, "sha512-Dq6f0SOKj3BDFRgOPnE6ALbzBDCKVIW8mKWVf7tGVhTDHf+wQaWwQSC3aArFSqdExB75BPBPyDpuMTNszhljpA=="],
 
-    "websocket": ["websocket@github:frozeman/WebSocket-Node#6c72925", { "dependencies": { "debug": "^2.2.0", "nan": "^2.3.3", "typedarray-to-buffer": "^3.1.2", "yaeti": "^0.0.6" } }, "frozeman-WebSocket-Node-6c72925"],
+    "websocket": ["websocket@github:frozeman/WebSocket-Node#6c72925", { "dependencies": { "debug": "^2.2.0", "nan": "^2.3.3", "typedarray-to-buffer": "^3.1.2", "yaeti": "^0.0.6" } }, "frozeman-WebSocket-Node-6c72925", "sha512-JRuargwhMA5xY6szp7e8JRmIu0Zw1SYvW7gLu9SwaKGe7ud0osV/O7+T8ZN54RZW2FM46OOZ0QipgyPeumag0w=="],
 
     "which": ["which@4.0.0", "", { "dependencies": { "isexe": "^3.1.1" }, "bin": { "node-which": "bin/which.js" } }, "sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg=="],
 
