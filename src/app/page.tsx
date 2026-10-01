@@ -19,7 +19,7 @@ async function fetchVideos() {
 		return null;
 	}
 }
-async function fetchCollections() {
+export async function fetchCollections() {
 	try {
 		const response = await axios.get("/api/collections/");
 		return response.data as Collection[];

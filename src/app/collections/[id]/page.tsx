@@ -3,8 +3,13 @@ import { CollectionHero } from "@/components/collections/collection-hero";
 import { CollectionMetadata } from "@/components/collections/collection-metadata";
 import { CollectionVideoGrid } from "@/components/collections/collection-video-grid";
 import { Navbar } from "@/components/layout/navbar";
-import { getCollectionById, getCollectionVideos } from "@/services/collections";
+import {
+	getCollectionById,
+	getCollectionVideos,
+	getCollections,
+} from "@/services/collections";
 import { notFound } from "next/navigation";
+import type { Video } from "@/services/videos";
 
 interface CollectionPageProps {
 	params: Promise<{ id: string }>;
@@ -19,12 +24,12 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 	if (!collectionData) {
 		notFound();
 	}
-
-	const collectionVideos = await getCollectionVideos(id);
+	const collections = await getCollections();
+	const collectionVideos = await getCollectionVideos(id) as Video[];
 
 	return (
 		<main className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-6 py-10">
-			<Navbar />
+			<Navbar collections={collections} />
 			<CollectionHero
 				title={collectionData.name}
 				subtitle={collectionData.description}
@@ -35,7 +40,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
 			<CollectionMetadata
 				eventType={collectionData.event_type ?? ""}
-				eventDate={collectionData.date?.toISOString() ?? ""}
+				eventDate={collectionData.date?.toDateString() ?? ""}
 				venue={collectionData.venue ?? ""}
 				participants={collectionData.participants ?? 0}
 				totalVideos={0}

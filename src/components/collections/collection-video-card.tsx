@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Clock3, Eye, Play } from "lucide-react";
-
+import {Video} from "@/services/videos";
 import { Button } from "@/components/ui/button";
-import { Video } from "../video/video-grid";
+
 
 export function CollectionVideoCard({ video }: { video: Video }) {
 	return (
@@ -24,7 +24,7 @@ export function CollectionVideoCard({ video }: { video: Video }) {
 
 			<div className="relative aspect-video overflow-hidden">
 				<Image
-					src={video.thumbnailUrl}
+					src={video.thumbnailUrl ?? ""}
 					alt={video.title}
 					fill
 					className="

@@ -27,7 +27,7 @@ export function VideoCard({
 				/>
 			</div>
 
-			<div className="mt-3 flex flex-col items-end justify-between">
+			<div className="mt-3 flex flex-col items-start">
 				<h3 className="line-clamp-1 text-xl font-semibold text-white transition-colors group-hover:text-neutral-300">
 					{title}
 				</h3>

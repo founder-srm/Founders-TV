@@ -1,14 +1,12 @@
+"use client";
+
 import { Film } from "lucide-react";
 
 import { CollectionVideoCard } from "./collection-video-card";
 import { Video } from "@/services/videos";
 
-type CollectionGridVideo = Omit<Video, "collectionName"> & {
-	collectionName?: string;
-};
-
 interface CollectionVideoGridProps {
-	videos: CollectionGridVideo[];
+	videos: Video[];
 }
 
 export function CollectionVideoGrid({ videos }: CollectionVideoGridProps) {
@@ -83,7 +81,7 @@ export function CollectionVideoGrid({ videos }: CollectionVideoGridProps) {
                     "
 				>
 					{videos.map((video) => (
-						<CollectionVideoCard video={video} />
+						<CollectionVideoCard key={video.id} video={video} />
 					))}
 				</div>
 			)}

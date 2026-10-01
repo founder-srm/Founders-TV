@@ -1,3 +1,4 @@
+"use client";
 import { CalendarDays, MapPin, Trophy, Users, Video } from "lucide-react";
 
 interface CollectionMetadataProps {
