@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { getCollectionByName, getCollectionVideos } from "@/services/collections";
+import { getCollectionById, getCollectionVideos } from "@/services/collections";
 
 export async function GET(_request: Request,{ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const collection = await getCollectionByName(slug);
+  const collection = await getCollectionById(slug);
 
   if (!collection) {
     return NextResponse.json({ error: "Collection not found" }, { status: 404 });

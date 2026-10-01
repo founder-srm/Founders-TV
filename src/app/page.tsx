@@ -6,13 +6,7 @@ import { VideoGrid } from "@/components/video/video-grid";
 import axios from "axios";
 import { Video } from "@/components/video/video-grid";
 import { useEffect, useState } from "react";
-
-type Collection = {
-	id: string;
-	name: string;
-	description: string;
-	emoji: string;
-};
+import { Collection } from "@/services/collections";
 
 async function fetchVideos() {
 	try {
@@ -27,9 +21,7 @@ async function fetchVideos() {
 }
 async function fetchCollections() {
 	try {
-		const response = await axios.get(
-			process.env.NEXT_PUBLIC_APP_URL + "/api/collections/",
-		);
+		const response = await axios.get("/api/collections/");
 		return response.data as Collection[];
 	} catch (e) {
 		console.error("Error ", e);

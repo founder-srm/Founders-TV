@@ -5,7 +5,7 @@ import Link from "next/link";
 import { UserCircle2 } from "lucide-react";
 import { CollectionsDropdown } from "./collections-dropdown";
 import { redirect } from "next/navigation";
-import Collection from "@/types/Collection";
+import { Collection } from "@/services/collections";
 
 interface NavbarProps {
 	collections?: Collection[];

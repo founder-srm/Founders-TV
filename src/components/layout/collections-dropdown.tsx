@@ -8,7 +8,7 @@ import {
 	NavigationMenuList,
 	NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import Collection from "@/types/Collection";
+import type { Collection } from "@/services/collections";
 
 interface CollectionsDropdownProps {
 	collections: Collection[];
@@ -50,10 +50,6 @@ export function CollectionsDropdown({ collections }: CollectionsDropdownProps) {
                                         hover:bg-white/5
                                     "
 								>
-									<div className="text-2xl">
-										{collection.emoji}
-									</div>
-
 									<div>
 										<h3
 											className="

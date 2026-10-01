@@ -1,6 +1,8 @@
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, InferSelectModel, sql } from "drizzle-orm";
 import { assertDb } from "@/database/db";
 import { collection, video } from "@/database/schemas";
+
+export type Video = InferSelectModel<typeof video>;
 
 export async function getVideosByCollection(collectionId: string) {
   const database = assertDb();

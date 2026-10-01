@@ -3,26 +3,9 @@ import Link from "next/link";
 import { Clock3, Eye, Play } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Video } from "../video/video-grid";
 
-interface CollectionVideoCardProps {
-	id: string;
-
-	title: string;
-
-	thumbnail: string;
-
-	duration: string;
-
-	views: number;
-}
-
-export function CollectionVideoCard({
-	id,
-	title,
-	thumbnail,
-	duration,
-	views,
-}: CollectionVideoCardProps) {
+export function CollectionVideoCard({ video }: { video: Video }) {
 	return (
 		<article
 			className="
@@ -41,8 +24,8 @@ export function CollectionVideoCard({
 
 			<div className="relative aspect-video overflow-hidden">
 				<Image
-					src={thumbnail}
-					alt={title}
+					src={video.thumbnailUrl}
+					alt={video.title}
 					fill
 					className="
                         object-cover
@@ -52,7 +35,7 @@ export function CollectionVideoCard({
                     "
 				/>
 
-				<div
+				{/* <div
 					className="
                         absolute
                         bottom-3
@@ -67,8 +50,8 @@ export function CollectionVideoCard({
                         backdrop-blur
                     "
 				>
-					{duration}
-				</div>
+					{video.duration}
+				</div> */}
 			</div>
 
 			{/* Body */}
@@ -82,7 +65,7 @@ export function CollectionVideoCard({
                         text-white
                     "
 				>
-					{title}
+					{video.title}
 				</h3>
 
 				<div
@@ -103,17 +86,17 @@ export function CollectionVideoCard({
 					>
 						<span className="flex items-center gap-2">
 							<Eye size={16} />
-							{views.toLocaleString()}
+							{video.viewCount.toLocaleString()}
 						</span>
-
+						{/* 
 						<span className="flex items-center gap-2">
 							<Clock3 size={16} />
-							{duration}
-						</span>
+							{video.duration}
+						</span> */}
 					</div>
 
 					<Button size="icon" asChild className="rounded-full">
-						<Link href={`/video/${id}`}>
+						<Link href={`/video/${video.id}`}>
 							<Play
 								className="
                                     h-4

@@ -10,8 +10,6 @@ interface CollectionDescriptionProps {
 	edition: string;
 
 	theme: string;
-
-	prizePool?: string;
 }
 
 export function CollectionDescription({
@@ -19,7 +17,6 @@ export function CollectionDescription({
 	organizer,
 	edition,
 	theme,
-	prizePool,
 }: CollectionDescriptionProps) {
 	const [expanded, setExpanded] = useState(false);
 
@@ -96,10 +93,6 @@ export function CollectionDescription({
 					<InfoRow label="Edition" value={edition} />
 
 					<InfoRow label="Theme" value={theme} />
-
-					{prizePool && (
-						<InfoRow label="Prize Pool" value={prizePool} />
-					)}
 				</div>
 			</div>
 		</section>

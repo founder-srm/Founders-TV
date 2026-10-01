@@ -1,15 +1,18 @@
 import { and, desc, eq } from "drizzle-orm";
+import type { InferSelectModel } from "drizzle-orm";
 import { assertDb, db } from "@/database/db";
 import { collection, video } from "@/database/schemas";
+
+export type Collection = InferSelectModel<typeof collection>;
 
 export async function getCollections() {
   const database = assertDb();
   return database.select().from(collection).orderBy(desc(collection.createdAt));
 }
 
-export async function getCollectionByName(name: string) {
+export async function getCollectionById(id: string) {
   const database = assertDb();
-  const rows = await database.select().from(collection).where(eq(collection.name, name));
+  const rows = await database.select().from(collection).where(eq(collection.id, id));
   return rows.length > 0 ? rows[0] : null;
 }
 
