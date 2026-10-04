@@ -1,16 +1,11 @@
 import { auth } from "@/lib/auth/server";
 import Link from "next/link";
-import { requireAdmin } from "@/lib/auth/require-admin";
 
 // Server components using auth methods must be rendered dynamically
 export const dynamic = "force-dynamic";
 
 export default async function AuthPage() {
 	const { data: session } = await auth.getSession();
-	const isAdmin = await requireAdmin();
-	if (!isAdmin) {
-		return "Error: User is not an admin.";
-	}
 	if (session?.user) {
 		return (
 			<div className="flex flex-col gap-2 min-h-screen items-center justify-center bg-gray-900">

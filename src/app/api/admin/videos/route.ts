@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { requireAdmin } from "@/lib/auth/require-admin";
+import { requireApiKey } from "@/lib/auth/require-api-key";
 import { handleApiError } from "@/lib/errors/error-handler";
 import { adminVideoSchema } from "@/validations";
 import { video } from "@/database/schemas/video";
@@ -8,8 +8,7 @@ import { db } from "@/database/db";
 
 export async function POST(request: Request) {
     try {
-        // Ensures the request is authenticated and the user is an admin.
-        const admin = await requireAdmin();
+        await requireApiKey(request);
 
         const body = await request.json();
 
@@ -32,13 +31,11 @@ export async function POST(request: Request) {
             description: parsed.data.description,
             collectionId: parsed.data.collectionId,
             publishedAt: parsed.data.publishedAt,
-            createdById: admin.id,
         });
         
         return NextResponse.json(
             {
-                message: `Admin created video ${parsed.data.title} successfully.`,
-                createdBy: admin.id,
+                message: `Created video ${parsed.data.title} successfully.`,
                 data: parsed.data,
             },
             {

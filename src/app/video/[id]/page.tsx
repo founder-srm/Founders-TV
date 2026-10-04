@@ -7,6 +7,7 @@ import { VideoHeader } from "@/components/watch/video-header";
 import { VideoPlayer } from "@/components/watch/video-player";
 
 import { getCurrentUser } from "@/lib/auth/current-user";
+import { getCollections } from "@/services/collections";
 
 interface WatchProps {
 	params: Promise<{ id: string }>;
@@ -58,10 +59,11 @@ export default async function Watch({ params }: WatchProps) {
 		month: "long",
 		year: "numeric",
 	});
+	const collections = await getCollections();
 
 	return (
 		<main className="flex min-h-screen flex-col items-center pt-18 p-8">
-			<Navbar />
+			<Navbar collections={collections}/>
 
 			<VideoPlayer youtubeId={video.youtubeId} title={video.title} />
 
@@ -70,6 +72,8 @@ export default async function Watch({ params }: WatchProps) {
 				collection={video.collectionName ?? "Founders Club"}
 				views={video.viewCount}
 				likes={video.likeCount}
+				videoId={id}
+				isSignedIn={!!currentUser}
 				comments={video.commentCount}
 				uploadedAt={uploadedAt}
 			/>

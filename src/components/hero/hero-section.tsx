@@ -1,8 +1,11 @@
-import Image from "next/image";
 import { Play } from "lucide-react";
+import { Bangers } from "next/font/google";
+import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+
+const bangers = Bangers({ subsets: ["latin"], weight: "400" });
 
 export function HeroSection() {
 	return (
@@ -36,20 +39,18 @@ export function HeroSection() {
 			{/* Content */}
 			<div className="relative z-10 flex h-full items-center">
 				<div className="max-w-xl px-8 lg:px-14">
-					<h1 className="mb-8 text-5xl font-extrabold italic leading-tight text-white">
-						FOUNDATHON 3.0
+					<h1 className={`${bangers.className} mb-8 text-7xl text-white`}>
+						CLUB WARS
 					</h1>
 
 					<p className="mb-10 text-xl leading-relaxed text-white/80">
-						The third edition of Founders Club's annual flagship
-						hackathon promoting the advent of creative solutions to
-						new-age problems.
+						Club Wars is Founders Club flagship event where all the clubs in the campus come together to compete in a series of challenges and activities.
 					</p>
 
 					<Button
 						size="icon-lg"
 						className="w-auto h-auto pt-2 pb-2 pl-0 pr-0 rounded-2xl bg-white px-8 text-black hover:bg-neutral-200"
-						onClick={() => redirect("/video/1")}
+						onClick={() => redirect("/video/1fff445e-c79d-48d1-95f7-a35663dbe17e")}
 					>
 						<Play className="mr-2 fill-black" size={36} />
 						<span className="text-3xl font-semibold">Play</span>

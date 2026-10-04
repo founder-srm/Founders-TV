@@ -4,12 +4,13 @@ import { ProfileCard } from "@/components/profile/profile-card";
 import { getCurrentUser } from "@/lib/auth/current-user";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth/server";
+import { getCollections } from "@/services/collections";
 
 export const dynamic = "force-dynamic";
 
 export default async function ProfilePage() {
 	const user = await getCurrentUser();
-
+	const collections = await getCollections();
 	if (!user) {
 		redirect("/auth/sign-in");
 	}
@@ -34,7 +35,7 @@ export default async function ProfilePage() {
                 px-6
 				"
 			>
-				<Navbar />
+				<Navbar collections={collections}/>
 				<div className="text-center">
 					<h1
 						className="
@@ -57,7 +58,7 @@ export default async function ProfilePage() {
 					</p>
 				</div>
 
-				<ProfileCard name="Mohak Jain" email="mohakj500@gmail.com" />
+				<ProfileCard name={user.name} email={user.email} />
 
 				<div className="flex justify-center">
 					<LogoutButton onLogout={logout} />

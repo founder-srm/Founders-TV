@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 import {
 	Calendar,
 	Eye,
@@ -19,6 +22,8 @@ interface VideoHeaderProps {
 
 	views: number;
 	likes: number;
+	videoId: string;
+	isSignedIn: boolean;
 	comments: number;
 
 	uploadedAt: string;
@@ -29,9 +34,69 @@ export function VideoHeader({
 	collection,
 	views,
 	likes,
+	videoId,
+	isSignedIn,
 	comments,
 	uploadedAt,
 }: VideoHeaderProps) {
+	const router = useRouter();
+	const [liked, setLiked] = useState(false);
+	const [likeCount, setLikeCount] = useState(likes);
+	const [pending, setPending] = useState(false);
+
+	// Ask the API whether the signed-in user has already liked this video.
+	useEffect(() => {
+		if (!isSignedIn) {
+			setLiked(false);
+			return;
+		}
+
+		let cancelled = false;
+
+		axios
+			.get<{ liked: boolean }>(`/api/videos/${videoId}/like`)
+			.then((response) => {
+				if (!cancelled) setLiked(response.data.liked);
+			})
+			.catch((error) => {
+				console.error("Error fetching like status:", error);
+			});
+
+		return () => {
+			cancelled = true;
+		};
+	}, [videoId, isSignedIn]);
+
+	async function toggleLike() {
+		if (!isSignedIn) {
+			router.push("/auth/sign-in");
+			return;
+		}
+
+		if (pending) return;
+
+		const nextLiked = !liked;
+
+		// Optimistic update, rolled back if the request fails.
+		setPending(true);
+		setLiked(nextLiked);
+		setLikeCount((count) => count + (nextLiked ? 1 : -1));
+
+		try {
+			if (nextLiked) {
+				await axios.post(`/api/videos/${videoId}/like`);
+			} else {
+				await axios.delete(`/api/videos/${videoId}/like`);
+			}
+		} catch (error) {
+			console.error("Error updating like:", error);
+			setLiked(!nextLiked);
+			setLikeCount((count) => count + (nextLiked ? -1 : 1));
+		} finally {
+			setPending(false);
+		}
+	}
+
 	return (
 		<section className="space-y-6 py-8 w-full">
 			{/* Title */}
@@ -74,7 +139,7 @@ export function VideoHeader({
 
 					<StatPill
 						icon={<Heart size={16} />}
-						value={likes.toLocaleString()}
+						value={likeCount.toLocaleString()}
 						label="Likes"
 					/>
 
@@ -93,8 +158,16 @@ export function VideoHeader({
 				{/* Actions */}
 
 				<div className="flex items-center gap-3">
-					<GlassButton>
-						<Heart className="h-5 w-5" />
+					<GlassButton
+						onClick={toggleLike}
+						disabled={pending}
+						label={liked ? "Unlike video" : "Like video"}
+					>
+						<Heart
+							className={`h-5 w-5 ${
+								liked ? "fill-red-500 text-red-500" : ""
+							}`}
+						/>
 					</GlassButton>
 
 					<GlassButton>
@@ -143,11 +216,22 @@ function StatPill({ icon, value, label }: StatPillProps) {
 
 interface GlassButtonProps {
 	children: React.ReactNode;
+	onClick?: () => void;
+	disabled?: boolean;
+	label?: string;
 }
 
-function GlassButton({ children }: GlassButtonProps) {
+function GlassButton({
+	children,
+	onClick,
+	disabled,
+	label,
+}: GlassButtonProps) {
 	return (
 		<Button
+			onClick={onClick}
+			disabled={disabled}
+			aria-label={label}
 			size="icon"
 			variant="ghost"
 			className="
